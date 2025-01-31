@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/index')
 def index():
    return render_template("index.html")
 
@@ -62,6 +62,14 @@ def build():
 def healthcare():
    return render_template("esg/auto_system/healthcare.html")
 
+
+@app.route('/')
+def login_page():
+    return render_template("auth/login.html")
+
+@app.route('/home')
+def home():
+    return render_template("index.html")
 
 
 if __name__ == '__main__ ' :
