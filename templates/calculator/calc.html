@@ -7,12 +7,18 @@
 </head>
 <body>
     <h1>무엇을 도와드릴까요?</h1>
-    <h1>계산기 나눗셈만 처리하는 인공지능</h1>
-    <form action="/divideanswer" method="post">
+    <h1>계산기 인공지능</h1>
+    <form action="/calc" method="POST">
         <input type="text"  id="num1" placeholder="첫번째 수" name="num1">
-        <span> / </span>
+        <input type="text" id="opcode" placeholder="+ - * /" name="opcode">
         <input type="text" id="num2" placeholder="두번째 수" name="num2">
         <button type="submit" id="plus">결과보기</button>
     </form>
+
+    {% if result %}
+    <h2>{{num1}} {{opcode}} {{num2}} = {{result}}</h2>
+    {% endif %}
+    <a href="/calc"><h2>🐣다시 계산하기🐣</h2></a>
 </body>
 </html>
+

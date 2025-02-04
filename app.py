@@ -11,7 +11,7 @@ def index():
    return render_template("index.html")
 
 
-@app.route('/login', methods=["post"])
+@app.route('/login', methods=["POST"])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -25,75 +25,58 @@ def login():
      print("😂로그인 실패")
      return render_template("auth/loginfail.html")
     
-    
 
-   
+
+@app.route('/calc',methods=["POST", "GET"])
+def calc():
+    print("❤️계산기❤️")
+    print("😝전송된 데이터 방식:😝", request.method)
+
+    if request.method == "POST":
+      print("😊post방식으로 전송된 데이터😊")
+      num1 = request.form.get('num1')
+      num2 = request.form.get('num2')
+      opcode = request.form.get("opcode")
+
+      
+      print("num1:", num1)
+      print("opcode:", opcode)
+      print("num2:", num2)
+
+      if opcode == "+": 
+         result = int(num1) + int(num2)
+      elif opcode == "-":
+         result = int(num1) - int(num2)
+      elif opcode == "*":
+         result = int(num1) * int(num2)
+      elif opcode == "/":
+         result = int(num1) / int(num2)
+      else:
+         result = "⚠️연산자 오류 발생⚠️"
+
+
+      print(f"{num1}{opcode}{num2}={result}")
+      return render_template("calculator/calc.html", 
+                           num1  = num1, opcode = opcode, num2 = num2, result = result)
+
+    else:
+       print("😊get방식으로 전송된 데이터😊")
+       return render_template("calculator/calc.html")
+    
 @app.route('/minus')
 def minus():
    return render_template("calculator/minus.html")
-
-@app.route('/minusanswer', methods = ["POST"])
-def minusanswer():
-   print("➖뺄셈 알고리즘")
-   num1 = request.form.get('num1')
-   num2 = request.form.get('num2')
-   print("num1:", num1)
-   print("num2:", num2)
-   result = int(num1) - int(num2)
-   print("결과:", result)
-   print("😊뺄셈 성공")
-   return render_template("answer/minus.html", num1 = num1, num2 = num2, result = result)
-
-@app.route('/plus')
-def plus():
-   return render_template("calculator/plus.html")
-
-
-@app.route('/plusanswer',methods=["POST"])
-def plusanswer():
-    print("➕덧셈 알고리즘")
-    num1 = request.form.get('num1')
-    num2 = request.form.get('num2')
-    print("num1:", num1)
-    print("num2:", num2)
-    result = int(num1) + int(num2)
-    print("결과:", result)
-    print("😊덧셈 성공")
-    return render_template("answer/plus.html", num1  = num1, num2 = num2, result = result)
 
 
 @app.route('/multiple')
 def multiple():
    return render_template("calculator/multiple.html")
 
-@app.route('/multipleanswer',methods=["POST"])
-def multipleanswer():
-    print("✖️곱셈 알고리즘")
-    num1 = request.form.get('num1')
-    num2 = request.form.get('num2')
-    print("num1:", num1)
-    print("num2:", num2)
-    result = int(num1) * int(num2)
-    print("결과:", result)
-    print("😊곱셈 성공")
-    return render_template("answer/multiple.html", num1  = num1, num2 = num2, result = result)
-
 
 @app.route('/divide')
 def divide():
    return render_template("calculator/divide.html")
 
-@app.route('/divideanswer',methods=["POST"])
-def divideanswer():
-    print("➗나눗셈 알고리즘")
-    num1 = request.form.get('num1')
-    num2 = request.form.get('num2')
-    print("num1:", num1)
-    print("num2:", num2)
-    result = int(num1) / int(num2)
-    print("결과:", result)
-    print("😊나눗셈 성공")
-    return render_template("answer/divide.html", num1  = num1, num2 = num2, result = result)
 
 
 @app.route('/approval')
